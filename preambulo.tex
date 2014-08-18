@@ -1,0 +1,229 @@
+% su style guidelines
+% http://www.syr.edu/gradschool/em/pdfs/emdissertation/Doctoral%20Dissertation%20%20Masters%20theses%20Format%20Guidelines.pdf
+% https://en.wikipedia.org/wiki/Book_design
+
+%\usepackage[T1]{fontenc}
+
+\usepackage{ifthen}
+\newboolean{uprightparticles}
+\setboolean{uprightparticles}{false} %True for upright particle symbols
+
+\newboolean{isdraft}
+\setboolean{isdraft}{false} % change to false when final version is ready
+
+\usepackage{xspace}
+\usepackage{adjustbox} % for clipping seal images in xelatex
+\usepackage{sidecap}
+\usepackage{rotating} % for sidewaysfigure
+
+\usepackage[english]{babel}
+\usepackage[mdyy]{datetime}
+\usepackage[margin=1in]{geometry}
+\usepackage{everysel}
+\usepackage{amsmath,amssymb}
+%\usepackage[nomarkers]{endfloat}
+%\usepackage{bm}
+\usepackage{bookmark,hyperref}
+\usepackage[all]{hypcap} 
+%\usepackage{feynmf}
+\usepackage[nottoc]{tocbibind}
+\usepackage{appendix}
+\usepackage{color}
+\usepackage{tabu}
+\usepackage{xfrac}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,positioning,fit,petri,decorations.markings,patterns,plotmarks,shapes}
+
+% if using xelatex, will also format math
+%\usepackage[Numbers=OldStyle,Ligatures=TeX,Scale=MatchLowercase]{mathspec}
+%\setallmainfonts{Source Sans Pro Light}
+%\newfontfamily\semibold{Source Sans Pro}
+%\newcommand\tracked[1]{{\addfontfeature{LetterSpace=12}#1}} % for all caps words
+%\usepackage{xunicode}
+%\defaultfontfeatures{Mapping=tex-text}
+%\usepackage{unicode-math}
+%\usepackage{hvmath}
+%\usepackage[Euler]{upgreek}
+
+\usepackage[default,light,oldstyle,semibold]{sourcesanspro}
+\usepackage[cmbright]{sfmath}
+
+\usepackage[tracking=true]{microtype}
+\SetTracking
+ [ no ligatures = {f},
+ spacing = {600*,-100*, },
+ outer spacing = {450,250,150},
+ outer kerning = {*,*} ]
+ { encoding = * }
+ { 160 }
+\newcommand\tracked[1]{\textls{#1}}
+
+
+%\usepackage[default]{sourcesanspro} % doesn't change some any greek letters (only pi and o)
+%\usepackage{microtype} % doesn't really work with xelatex
+%\usepackage{sfmath}
+
+\usepackage[font={it}]{caption}
+\captionsetup[table]{aboveskip=12pt}
+\captionsetup[table]{belowskip=12pt}
+
+
+
+\usepackage[center]{titlesec}
+\titleformat{\part}[display]{\Huge\filcenter\normalfont}{Part \thepart\\}{0pt}{\Huge\normalfont}
+\titleformat{\chapter}[display]{\large\filcenter\normalfont}{\color{gray} Chapter \thechapter}{0pt}{\huge\normalfont}
+\titleformat{\section}{\normalfont\filcenter\large}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\filcenter\large}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}[runin]{\normalfont\scshape}{\thesubsubsection}{1em}{}[:]
+\titleformat{\paragraph}[runin]{\normalfont\itshape}{\theparagraph}{}{}[:]
+\titlespacing{\paragraph}{0em}{0em}{0.2em}
+\usepackage{titletoc}
+
+\usepackage{tocloft}
+\renewcommand{\cftpartfont}{\Large \normalfont}
+\renewcommand{\cftpartpagefont}{\large \normalfont}
+\renewcommand{\cftchapfont}{\large \normalfont}
+\renewcommand{\cftchappagefont}{\large \normalfont}
+\renewcommand{\cfttoctitlefont}{\huge \normalfont}
+\renewcommand{\cftloftitlefont}{\huge \normalfont}
+\renewcommand{\cftlottitlefont}{\huge \normalfont}
+%\makeatletter
+%\renewcommand{\@numwidth}{2.55em}
+%\makeatother
+
+\frenchspacing
+\usepackage{parskip}
+\setlength{\parskip}{0.35cm}
+\usepackage{setspace}
+%\onehalfspace
+\doublespace
+
+\usepackage{sparklines}
+
+\ifthenelse{\boolean{isdraft}}{
+\usepackage{lineno}
+\linenumbers
+% there is a problem with amsmath and lineno stuff, so here is a fix
+% from http://phaseportrait.blogspot.com/2007/08/lineno-and-amsmath-compatibility.html
+\newcommand*\patchAmsMathEnvironmentForLineno[1]{%
+  \expandafter\let\csname old#1\expandafter\endcsname\csname #1\endcsname
+  \expandafter\let\csname oldend#1\expandafter\endcsname\csname end#1\endcsname
+  \renewenvironment{#1}%
+     {\linenomath\csname old#1\endcsname}%
+     {\csname oldend#1\endcsname\endlinenomath}}% 
+\newcommand*\patchBothAmsMathEnvironmentsForLineno[1]{%
+  \patchAmsMathEnvironmentForLineno{#1}%
+  \patchAmsMathEnvironmentForLineno{#1*}}%
+\AtBeginDocument{%
+\patchBothAmsMathEnvironmentsForLineno{equation}%
+\patchBothAmsMathEnvironmentsForLineno{align}%
+\patchBothAmsMathEnvironmentsForLineno{flalign}%
+\patchBothAmsMathEnvironmentsForLineno{alignat}%
+\patchBothAmsMathEnvironmentsForLineno{gather}%
+\patchBothAmsMathEnvironmentsForLineno{multline}%
+}
+}{ % no line numbers for not a draft
+    }
+
+\usepackage{fancyhdr}
+
+\setlength{\headheight}{15pt}
+\fancypagestyle{plain}{%
+\fancyhf{} % clear all header and footer fields
+\ifthenelse{\boolean{isdraft}}{
+\fancyhead[LO,RE]{\small - * - \tracked{DRAFT} \today~- * -}
+}{}
+\fancyhead[RO]{\small \tracked{\scriptsize \leftmark}\hspace{3mm}\thepage} % except the center
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headheight}{16pt}
+\fancyhead[LE]{\small \thepage\hspace{3mm}\tracked{\scriptsize \leftmark}} % except the center
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headheight}{16pt}}
+
+\fancypagestyle{plainbottom}{%
+\fancyhf{} % clear all header and footer fields
+\ifthenelse{\boolean{isdraft}}{
+\fancyhead[LO,RE]{\small - * - \tracked{DRAFT \today}~- * -}
+}{}
+\fancyfoot[C]{\small \thepage} % except the center
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt} }
+
+\fancypagestyle{empty}{%  just delete this when not in draft any more
+\fancyhf{} % clear all header and footer fields
+\ifthenelse{\boolean{isdraft}}{
+\fancyhead[LO,RE]{\small - * - \tracked{DRAFT \today}~- * -}
+}{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}}
+
+\pagestyle{plainbottom}
+
+
+
+
+
+%% from http://tex.stackexchange.com/questions/22100/the-bar-and-overline-commands
+\makeatletter
+\newsavebox\myboxA
+\newsavebox\myboxB
+\newlength\mylenA
+\newcommand*\xoverline[2][0.75]{%
+    \sbox{\myboxA}{$\m@th#2$}%
+    \setbox\myboxB\null% Phantom box
+    \ht\myboxB=\ht\myboxA%
+    \dp\myboxB=\dp\myboxA%
+    \wd\myboxB=#1\wd\myboxA% Scale phantom
+    \sbox\myboxB{$\m@th\overline{\copy\myboxB}$}%  Overlined phantom
+    \setlength\mylenA{\the\wd\myboxA}%   calc width diff
+    \addtolength\mylenA{-\the\wd\myboxB}%
+    \ifdim\wd\myboxB<\wd\myboxA%
+       \rlap{\hskip 0.5\mylenA\usebox\myboxB}{\usebox\myboxA}%
+    \else
+        \hskip -0.5\mylenA\rlap{\usebox\myboxA}{\hskip 0.5\mylenA\usebox\myboxB}%
+    \fi}
+\makeatother
+
+%% from http://tex.stackexchange.com/questions/109576/change-sqrt-symbol 
+%\def\radice#1{\surd\kern-.25pt\overline{\mathstrut#1}}
+
+%\makeatletter
+%\let\ps@plain\ps@fancy
+%\makeatother
+\AtBeginDocument{\addtocontents{toc}{\protect\thispagestyle{plainbottom}}}
+\AtBeginDocument{\addtocontents{lof}{\protect\thispagestyle{plainbottom}}}
+\AtBeginDocument{\addtocontents{lot}{\protect\thispagestyle{plainbottom}}}
+
+\DeclareTextCommandDefault{\nobreakspace}{\leavevmode\nobreak\ }
+
+\DeclareGraphicsRule{*}{mps}{*}{}
+
+\usepackage{stmaryrd}
+\renewcommand\to{\rightarrowtriangle}
+\renewcommand\rightarrow{\rightarrowtriangle}
+
+\newcommand{\avg}[1]{\left< #1 \right>} % for average
+
+\renewcommand\labelitemi{\small$\square$}
+
+%\addto\captionsenglish{\renewcommand{\bibname}{References}}
+
+\usepackage[hyperref=true,
+            url=true,
+            isbn=false,
+            backref=true,
+            style=numeric-comp,
+            maxcitenames=3,
+            maxbibnames=100,
+            sorting=none,
+            arxiv=abs,
+            block=none]{biblatex}
+\addbibresource{thesis.bib}
+\DefineBibliographyStrings{english}{%
+  bibliography = {References},
+}
+
+\renewcommand{\bibsetup}{\pagestyle{plain}}

@@ -1,0 +1,104 @@
+% build instructions:
+% $> pdflatex thesis
+% $> biber thesis
+% $> pdflatex thesis
+% $> pdflatex thesis
+%
+%
+% J. Garofoli //  April 2014
+\documentclass[letterpaper,12pt,oneside]{book} % change to twoside for paper printing version
+\input{preambulo}
+\input{symbols}
+\input{aliases}
+\input{jg-symbols-def}
+%\input{/Users/justing/jgarofol/analysis/B2Dkpipi/Restrip/ana/mylatexvars2}
+%\input{mylatexvars2}
+
+\begin{document}
+\setlength{\unitlength}{1mm}
+\frontmatter
+\pagestyle{plainbottom}
+
+\input{abs}
+\input{titlepage}
+%\input{committee}
+\include{dedication}
+\pagestyle{plainbottom}
+\include{ack}
+\include{seals}
+\include{quote}
+
+\pagestyle{plainbottom}
+\addtocontents{toc}{\protect{\pdfbookmark[0]{\contentsname}{toc}}}
+\tableofcontents
+\clearpage
+\listoffigures
+\clearpage
+\listoftables
+\clearpage
+
+
+\pagestyle{empty}
+\cleardoublepage
+\input{halftitle}
+\mainmatter
+\renewcommand{\chaptermark}[1]{\markboth{\MakeUppercase{#1}}{}}
+\pagestyle{plain}
+\include{intro}
+%\include{cpv_sm}
+\include{LHCb}
+\include{meas}
+\include{conclusion}
+% olde versione:
+%\part*{The Study}
+%\part{Foundations}
+%\include{current}
+%\include{exp}
+%\include{theory}
+%\include{mva}
+%\part{Apparatus}
+%\include{LHC}
+%\include{LHCb}
+%\include{Computing}
+%\part{Analysis}
+%\include{meas}
+%\include{comb}
+%\include{future}
+%\include{conclusion}
+
+\bookmarksetup{startatroot}% this is it
+\addtocontents{toc}{\bigskip}% perhaps as well
+
+
+\pagestyle{empty}
+\part*{Appendices}
+\appendix
+\begin{appendices}
+%\renewcommand{\thechapter}{\arabic{chapter}} % appenices numbers instead of letters
+\titleformat{\chapter}[display]{\large\filcenter\sffamily}{\color{gray} Appendix \thechapter}{0pt}{\huge\sffamily}
+\pagestyle{plain}
+\include{app01}   % 1
+\end{appendices}
+
+\bookmarksetup{startatroot}% this is it
+\addtocontents{toc}{\bigskip}% perhaps as well
+
+\backmatter
+% put back links to the referencing page? http://tex.stackexchange.com/questions/36307/formatting-back-references-in-bibliography 
+%\bibliography{thesis}{}
+%\bibliographystyle{plain-annote}
+%\bibliographystyle{jgsty}
+
+\pagestyle{plain}
+\printbibliography[heading=bibintoc]
+\cleardoublepage
+
+% an index? http://en.wikibooks.org/wiki/LaTeX/Indexing
+
+\pagestyle{empty}
+\cleardoublepage
+%\include{colophon}
+\include{vita}
+
+\end{document}
+
