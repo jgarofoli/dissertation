@@ -9,8 +9,11 @@ build instructions:
 ===========
 
 > $> pdflatex thesis
+>
 > $> biber thesis
+>
 > $> pdflatex thesis
+>
 > $> pdflatex thesis
 
 future:
